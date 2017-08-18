@@ -1,0 +1,3 @@
+package: github.com/tdsh/time-to-go
+import:
+  - package: github.com/mqu/go-notify

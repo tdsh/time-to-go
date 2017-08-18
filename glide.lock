@@ -1,0 +1,10 @@
+hash: 131847890e860c8c72dd43963cb31a041c9bb0f63d81920938304bf5be728140
+updated: 2017-08-10T17:13:33.136065142+09:00
+imports:
+- name: github.com/mattn/go-gtk
+  version: f546757330f0b7d13aabef1a8a095c727f6cb571
+  subpackages:
+  - glib
+- name: github.com/mqu/go-notify
+  version: ef6f6f49d093be44ff1ec9879b1a7173b8bce2c6
+testImports: []
