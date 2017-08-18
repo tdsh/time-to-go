@@ -170,12 +170,18 @@ L1:
 // using ANSI escape sequences. It has the potential not to work in
 // some terminal environments.
 func flashScreen(t int) {
+	// workaround for TMUX.
+	escSeq := "\x1b[?%s"
+	_, tmux := os.LookupEnv("TMUX")
+	if tmux == true {
+		escSeq = "\x1bPtmux;\x1b\x1b[?%s\x1b\\"
+	}
 	for i := 0; i < t; i++ {
 		// reverse video
-		fmt.Fprintf(os.Stdout, "\x1b[?5h")
+		fmt.Fprintf(os.Stdout, escSeq, "5h")
 		time.Sleep(500 * time.Millisecond)
 		// normal video
-		fmt.Fprintf(os.Stdout, "\x1b[?5l")
+		fmt.Fprintf(os.Stdout, escSeq, "5l")
 		if i == t-1 {
 			break
 		}
