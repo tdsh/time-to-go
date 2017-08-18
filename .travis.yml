@@ -13,6 +13,9 @@ cache:
   directories:
     - vendor
 
+before_install:
+  - sudo apt-get install -y libnotify-bin libnotify-dev
+
 install:
   - make deps
 
