@@ -1,5 +1,7 @@
 # time-to-go
 
+[![Build Status](https://travis-ci.org/tdsh/time-to-go.svg?branch=master)](https://travis-ci.org/tdsh/time-to-go)
+
 Simple command to trigger an alarm (desktop notification and screen flashing) in specified duration.
 
 ## Description
