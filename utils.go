@@ -29,11 +29,11 @@ To set alarm 3 minutes 20 seconds.
 
 time-to-go accepts TIME as the below format.
 When you specify time unit, it must be one of units defined by International System of Units (SI) or units outside the SI.
-i.e.) second: s, minute: min, hour: h
+i.e.) second: s, minute: min
 
   45 seconds: 45 s, 45s, .45, :45
   3 minutes: 3 min, 3min, 3.00, 3.0, 3. 3:00, 3:0, 3
-  2 minutes 40 seconds: 2 min 40 s, 2 40, 2.40, 2:40
+  2 minutes 40 seconds: 2 min 40 s, 2min 40s, 2 40, 2.40, 2:40
 
 Press Ctrl+C to cancel the timer.
 `
@@ -114,25 +114,48 @@ L1:
 			return d, err
 		}
 	case argsLen == 2:
-		// At least, 1st arg must be number.
-		m, err := strconv.Atoi(args[0])
+		// 1. Check if 1st arg is number.
+		arg0, err := strconv.Atoi(args[0])
+		if err == nil {
+			switch args[1] {
+			case "s":
+				d += time.Duration(arg0) * time.Second
+				break L1
+			case "min":
+				d += time.Duration(arg0) * time.Minute
+				break L1
+			default:
+				arg1, err := strconv.Atoi(args[1])
+				if err != nil {
+					return d, err
+				}
+				d += time.Duration(arg0) * time.Minute
+				d += time.Duration(arg1) * time.Second
+				break L1
+			}
+		}
+		// 2. Check if the args are like "XXmin YYs".
+		if len(args[0]) < 4 {
+			return d, errors.New("Wrong format")
+		}
+		arg0last3Chars := args[0][len(args[0])-3:]
+		if arg0last3Chars != "min" {
+			return d, errors.New("Wrong format")
+		}
+		arg1lastChar := args[1][len(args[1])-1]
+		if arg1lastChar != 's' {
+			return d, errors.New("Wrong format")
+		}
+		m, err := strconv.Atoi(args[0][:len(args[0])-3])
 		if err != nil {
 			return d, err
 		}
-		s, err := strconv.Atoi(args[1])
-		if err == nil {
-			d += time.Duration(m)*time.Minute + time.Duration(s)*time.Second
-			break
+		s, err := strconv.Atoi(args[1][:len(args[1])-1])
+		if err != nil {
+			return d, err
 		}
-		if args[1] == "min" {
-			d += time.Duration(m) * time.Minute
-			break
-		} else if args[1] == "s" {
-			d += time.Duration(m) * time.Second
-			break
-		} else {
-			return d, errors.New("Wrong format")
-		}
+		d += time.Duration(m) * time.Minute
+		d += time.Duration(s) * time.Second
 	case argsLen == 4:
 		if args[1] != "min" {
 			return d, errors.New("Wrong format")
