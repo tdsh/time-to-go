@@ -28,9 +28,12 @@ To set alarm 3 minutes 20 seconds.
   $ time-to-go 3:20
 
 time-to-go accepts TIME as the below format.
-  45 sec: 45 sec, 45 s, 45sec, 45s, .45, :45
-  3 min: 3 min, 3 m, 3min, 3m, 3.00, 3.0, 3. 3:00, 3:0, 3
-  2 min 40 sec: 2 min 40 sec, 2 m 40 s, 2 min 40, 2 m 40, 2 40, 2.40, 2:40
+When you specify time unit, it must be one of units defined by International System of Units (SI) or units outside the SI.
+i.e.) second: s, minute: min, hour: h
+
+  45 seconds: 45 s, 45s, .45, :45
+  3 minutes: 3 min, 3min, 3.00, 3.0, 3. 3:00, 3:0, 3
+  2 minutes 40 seconds: 2 min 40 s, 2 40, 2.40, 2:40
 
 Press Ctrl+C to cancel the timer.
 `
@@ -87,7 +90,7 @@ L1:
 				break L1
 			}
 		}
-		// 2. Check if arg ends with "s" or "m".
+		// 2. Check if arg ends with "s".
 		lastChar := args[0][len(args[0])-1]
 		if lastChar == 's' {
 			s, err := strconv.Atoi(args[0][:len(args[0])-1])
@@ -95,23 +98,11 @@ L1:
 				d += time.Duration(s) * time.Second
 				break L1
 			}
-		} else if lastChar == 'm' {
-			m, err := strconv.Atoi(args[0][:len(args[0])-1])
-			if err == nil {
-				d += time.Duration(m) * time.Minute
-				break L1
-			}
 		}
-		// 3. Check if arg ends with "sec" or "min".
+		// 3. Check if arg ends with "min".
 		if len(args[0]) >= 4 {
 			last3Chars := args[0][len(args[0])-3:]
-			if last3Chars == "sec" {
-				s, err := strconv.Atoi(args[0][:len(args[0])-3])
-				if err == nil {
-					d += time.Duration(s) * time.Second
-					break L1
-				}
-			} else if last3Chars == "min" {
+			if last3Chars == "min" {
 				m, err := strconv.Atoi(args[0][:len(args[0])-3])
 				if err == nil {
 					d += time.Duration(m) * time.Minute
@@ -133,20 +124,20 @@ L1:
 			d += time.Duration(m)*time.Minute + time.Duration(s)*time.Second
 			break
 		}
-		if args[1] == "m" || args[1] == "min" {
+		if args[1] == "min" {
 			d += time.Duration(m) * time.Minute
 			break
-		} else if args[1] == "s" || args[1] == "sec" {
+		} else if args[1] == "s" {
 			d += time.Duration(m) * time.Second
 			break
 		} else {
 			return d, errors.New("Wrong format")
 		}
-	case argsLen == 3 || argsLen == 4:
-		if args[1] != "m" && args[1] != "min" {
+	case argsLen == 4:
+		if args[1] != "min" {
 			return d, errors.New("Wrong format")
 		}
-		if argsLen == 4 && args[3] != "s" && args[3] != "sec" {
+		if argsLen == 4 && args[3] != "s" {
 			return d, errors.New("Wrong format")
 		}
 		// At least, 1st arg must be number.
@@ -160,7 +151,7 @@ L1:
 			return d, err
 		}
 		d += time.Duration(m)*time.Minute + time.Duration(s)*time.Second
-	case argsLen > 4:
+	case argsLen == 3 || argsLen > 4:
 		return d, errors.New("Too much arguments")
 	}
 	return d, nil

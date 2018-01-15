@@ -26,10 +26,11 @@ To set alarm 3 minutes 20 seconds.
 
   $ time-to-go 3:20
 
-time-to-go accepts TIME as the below format.
-  45 sec: 45 sec, 45 s, 45sec, 45s, .45, :45
-    3 min: 3 min, 3 m, 3min, 3m, 3.00, 3.0, 3. 3:00, 3:0, 3
-      2 min 40 sec: 2 min 40 sec, 2 m 40 s, 2 min 40, 2 m 40, 2 40, 2.40, 2:40
+time-to-go accepts TIME as the below format. When you specify time unit, it must be one of units defined by International System of Units (SI) or units outside the SI. i.e.) second: s, minute: min, hour: h
+
+  45 seconds: 45 s, 45s, .45, :45
+  3 minutes: 3 min, 3min, 3.00, 3.0, 3. 3:00, 3:0, 3
+  2 minutes 40 seconds: 2 min 40 s, 2 40, 2.40, 2:40
 
 Press Ctrl+C to cancel the timer.
 
