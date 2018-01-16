@@ -31,6 +31,9 @@ time-to-go accepts TIME as the below format. When you specify time unit, it must
   45 seconds: 45 s, 45s, .45, :45
   3 minutes: 3 min, 3min, 3.00, 3.0, 3. 3:00, 3:0, 3
   2 minutes 40 seconds: 2 min 40 s, 2min 40s, 2 40, 2.40, 2:40
+  1 hours 15 minutes: 1 h 15 min, 1h 15min, 1.15.0, 1.15.00, 1:15:0, 1:15:00
+  1 hours 20 minutes 30 seconds: 1 h 20 min 30 s, 1h 20min 30s, 1 20 30, 1.20.30, 1:20:30
+  2 hours 40 seconds: 2 h 40 s, 2h 40s, 2 0 45
 
 Press Ctrl+C to cancel the timer.
 
