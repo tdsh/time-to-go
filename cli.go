@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"os/signal"
+	"strings"
 	"sync"
 	"time"
 
@@ -77,7 +78,7 @@ func (cli *CLI) Run(args []string) int {
 	defer ticker.Stop()
 	stop := make(chan bool)
 	defer close(stop)
-	fmt.Printf("Sleeping %v\n", d)
+	fmt.Printf("Sleeping %v\n", strings.Replace(d.String(), "m", "min", 1))
 	go func() {
 	loop:
 		for {
