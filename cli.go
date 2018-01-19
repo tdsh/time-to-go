@@ -87,7 +87,20 @@ func (cli *CLI) Run(args []string) int {
 				if simple != true {
 					rem--
 					if rem != 0 {
-						fmt.Fprintf(cli.outStream, "\r%3d sec(s) remains...", rem)
+						min := rem / 60
+						sec := rem % 60
+						hour := min / 60
+						min = min % 60
+						timeLimit := ""
+						switch {
+						case hour > 0:
+							timeLimit = fmt.Sprintf("%02vh%02vmin%02vs", hour, min, sec)
+						case min > 0:
+							timeLimit = fmt.Sprintf("   %02vmin%02vs", min, sec)
+						default:
+							timeLimit = fmt.Sprintf("        %02vs", sec)
+						}
+						fmt.Fprintf(cli.outStream, "\r%s remains...", timeLimit)
 					} else {
 						fmt.Fprintf(cli.outStream, "\r  0 sec(s) remains...\n")
 						break loop
