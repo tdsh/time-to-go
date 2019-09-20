@@ -13,11 +13,6 @@ endif
 
 BENCH_FLAGS ?= -cpuprofile=cpu.pprof -memprofile=mem.pprof -benchmem           
 
-deps:                                  
-	@echo "Installing Glide and dependencies..."                           
-	glide --version || go get -u -f github.com/Masterminds/glide           
-	glide install                  
-
 lint:                                  
 ifdef SHOULD_LINT                      
 	@rm -rf $(LINT_LOG)            
