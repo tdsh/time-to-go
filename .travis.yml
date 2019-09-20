@@ -2,16 +2,19 @@ language: go
 
 os:
   - linux
+  - osx
 
 go:
-  - 1.x
+  - 1.11.x
   - master
 
+dist: trusty
 sudo: false
 
-cache:
-  directories:
-    - vendor
+install: true
+
+env:
+  - GO111MODULE=on
 
 addons:
   apt:
@@ -19,9 +22,7 @@ addons:
       - libnotify-bin
       - libnotify-dev
 
-install:
-  - make deps
-
 script:
   - make lint
+  - go build
   - make test
