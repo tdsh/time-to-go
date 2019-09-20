@@ -1,0 +1,4 @@
+github.com/mattn/go-gtk v0.0.0-20190405072524-4deadb416788 h1:y6KPjcY0SVK6Qcpyg7PQvp1x8BwxS0aZrQCNP59nDR4=
+github.com/mattn/go-gtk v0.0.0-20190405072524-4deadb416788/go.mod h1:PwzwfeB5syFHXORC3MtPylVcjIoTDT/9cvkKpEndGVI=
+github.com/mqu/go-notify v0.0.0-20130719194048-ef6f6f49d093 h1:OvySnanP8CQIKS+MTq9AXBwEXzm0YaKeu331bWql3ug=
+github.com/mqu/go-notify v0.0.0-20130719194048-ef6f6f49d093/go.mod h1:AthsKyBZ9hqwU7DBWFiOxYObyF8nVyYVubXv/pQNC5E=
